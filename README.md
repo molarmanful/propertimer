@@ -1,0 +1,2 @@
+# propertimer
+Improvement over Minimalistimer.
