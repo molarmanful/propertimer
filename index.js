@@ -22,8 +22,9 @@ scram=x=>(
   $('#scramble').text(x)
 )
 
-//conversion from mins
+//conversions
 sec=x=>(x/60|0)+':'+`00${x%60|0}`.slice(-2)+'.'+`000${(x-(x|0))*1e3+.5|0}`.slice(-3)
+unsec=x=>(a=x.split`:`,a[1]?a[0]*60+(a[1]*1e3|0)/1e3:(a[0]*1e3|0)/1e3)
 
 //inspection time
 insp=_=>(state=2,ins=15,INSP=setInterval(_=>{
@@ -40,7 +41,7 @@ time=_=>(state=1,$('#time').css({color:'initial'}),state=1,ms=new Date(),TIME=se
 }),1)
 
 //post-timing
-done=_=>(state=0,fs.appendFile(`times_${ev}.txt`,(pen==2?'d':pen==1?$('#time').text()+'+2':$('#time').text())+'\n',_=>{}),scram())
+done=_=>(state=0,fs.appendFile(`times_${ev}.txt`,(pen==2?'d':pen==1?sec(unsec($('#time').text())+2):$('#time').text())+'\n',_=>{}),scram())
 
 //inspect or time using keyup, stop timer using keydown
 $(_=>{
