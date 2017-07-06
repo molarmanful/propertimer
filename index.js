@@ -1,24 +1,31 @@
+//deps
 $=require('jquery')
 fs=require('fs')
 scr=require('./scrambler.js')
 
+//read config
 cfg=require(require('os').homedir()+'/.propertimerrc')
-
 inspect=cfg.inspect||1
 ev=cfg.event||'333'
+
+//start scrambler for current event
 scr[ev].initialize(null,Math)
 
+//init vars
 state=0
 pen=0
 
+//scrambler
 scram=x=>(
   x=scr[ev].getRandomScramble().scramble_string,
   ev=='333bf'&&(x+=' '+['','Rw','Rw2','Rw\'','Fw','Fw\''][randomInt.below(6)]+' '+['','Dw','Dw2','Dw\''][randomInt.below(4)]),
   $('#scramble').text(x)
 )
 
+//conversion from mins
 sec=x=>(x/60|0)+':'+`00${x%60|0}`.slice(-2)+'.'+`000${(x-(x|0))*1e3+.5|0}`.slice(-3)
 
+//inspection time
 insp=_=>(state=2,ins=15,INSP=setInterval(_=>{
   ins>0?
     $('#time').html(ins--)
@@ -27,12 +34,15 @@ insp=_=>(state=2,ins=15,INSP=setInterval(_=>{
   :(pen=2,$('#time').html('DNF'),clearInterval(INSP),done())
 },1e3))
 
+//timing
 time=_=>(state=1,$('#time').css({color:'initial'}),state=1,ms=new Date(),TIME=setInterval(_=>{
   $('#time').html(sec((new Date()-ms)/1e3))
 }),1)
 
+//post-timing
 done=_=>(state=0,fs.appendFile(`times_${ev}.txt`,(pen==2?'d':pen==1?$('#time').text()+'+2':$('#time').text())+'\n',_=>{}),scram())
 
+//inspect or time using keyup, stop timer using keydown
 $(_=>{
   scram()
   $(window).keyup(e=>{
