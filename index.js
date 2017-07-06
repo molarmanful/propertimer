@@ -31,7 +31,7 @@ time=_=>(state=1,$('#time').css({color:'initial'}),state=1,ms=new Date(),TIME=se
   $('#time').html(sec((new Date()-ms)/1e3))
 }),1)
 
-done=_=>(state=0,fs.appendFile(`times_${ev}.txt`,(pen==2?'d':pen==1?$('#time').text()+'+2':$('#time').text())+'\t'+'\n',_=>{}),scram())
+done=_=>(state=0,fs.appendFile(`times_${ev}.txt`,(pen==2?'d':pen==1?$('#time').text()+'+2':$('#time').text())+'\n',_=>{}),scram())
 
 $(_=>{
   scram()
