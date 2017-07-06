@@ -1,0 +1,2 @@
+autocmd BufNewFile,BufRead timer e index.pug|setf pug|vsp index.styl|setf stylus|tabe index.js|setf javascript|norm gT
+autocmd BufNewFile,BufRead times e times.pug|setf pug|vsp index.styl|setf stylus|tabe times.js|setf javascript|norm gT

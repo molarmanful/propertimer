@@ -1,0 +1,23 @@
+{
+  "name": "propertimer",
+  "version": "0.0.0",
+  "description": "Experimental Rubik's Cube Timer",
+  "main": "main.js",
+  "dependencies": {
+    "jquery": "^3.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/molarmanful/propertimer.git"
+  },
+  "author": "Benjamin Pang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/molarmanful/propertimer/issues"
+  },
+  "homepage": "https://github.com/molarmanful/propertimer#readme"
+}
