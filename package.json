@@ -6,7 +6,9 @@
   "dependencies": {
     "jquery": "^3.2.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "electron": "^1.6.11"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
