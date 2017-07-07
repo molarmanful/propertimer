@@ -13,12 +13,16 @@ sum=i=>i.reduce((a,b)=>a- -b,0)
 avg=i=>
   i.filter(a=>a==1/0).length<2?
     (
-      v=i.findIndex(a=>a==Math.min(i)),
-      w=i.findIndex(a=>a==Math.max(i)),
-      mean(i.filter(a=>a!='d').splice(v,1).splice(w,1))
+      v=i.indexOf(Math.min(...i)),
+      w=i.indexOf(Math.max(...i)),
+      i=i.filter(a=>a!='d'),
+      i.splice(v,1),
+      i.splice(w-1,1),
+      mean(i)
     )
   :'DNF'
-mean=i=>i.find(a=>a==1/0)?'DNF':sum(i)/i.length
+mean=i=>i.find(a=>a==1/0)?'DNF':amean(i)
+amean=i=>sum(i)/i.length
 
 //create times txt file for event if it doesn't exist
 fs.open(`times_${ev}.txt`,'wx',_=>{})
@@ -32,11 +36,13 @@ read=_=>fs.readFile(`times_${ev}.txt`,(_,x)=>{
   $('#s').text(
     '#\t'+y.length+'\n\n'+
 
-    'mos\t'+sec(mean(y))+'\n'+
+    'mos\t'+(y.length<1?'DNF':sec(amean(y)))+'\n'+
     'aos\t'+(y.length<3?'DNF':sec(avg(y)))+'\n\n'+
 
-    'cmo3\t'+(y.length<3?'DNF':sec(mean(y.slice(-3))))+'\n'+
-    'cao5\t'+(y.length<5?'DNF':sec(avg(y.slice(-5))))
+    'c-mo3\t'+(y.length<3?'DNF':sec(mean(y.slice(-3))))+'\n'+
+    'c-ao5\t'+(y.length<5?'DNF':sec(avg(y.slice(-5))))+'\n'+
+    'c-ao12\t'+(y.length<12?'DNF':sec(avg(y.slice(-12))))+'\n'+
+    'c-ao100\t'+(y.length<100?'DNF':sec(avg(y.slice(-100))))
   )
 })
 
@@ -44,7 +50,18 @@ read=_=>fs.readFile(`times_${ev}.txt`,(_,x)=>{
 $(_=>{
   read()
   fs.watch(`times_${ev}.txt`,read)
-  $('#t').on('keypress',e=>{
-    e.which==13&&(e.preventDefault(),fs.writeFile(`times_${ev}.txt`,$('#t').text().split`\n`.filter(a=>a).map(a=>sec(unsec(a))).join`\n`.replace(/DNF/ig,1/0),_=>{}))
+  $('#t').focus().on('keypress',e=>{
+    e.which==13&&!e.shiftKey&&(
+      e.preventDefault(),
+      fs.writeFile(
+        `times_${ev}.txt`,
+        $('#t').text().split`\n`
+          .filter(a=>a)
+          .map(a=>a.match(/dnf/ig)?1/0:sec(unsec(a)))
+          .join`\n`,
+        _=>{}
+      )
+    )
   })
+  $('#t').blur(e=>$('#t').focus())
 })

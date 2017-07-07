@@ -41,7 +41,15 @@ time=_=>(state=1,$('#time').css({color:'initial'}),state=1,ms=new Date(),TIME=se
 }),1)
 
 //post-timing
-done=_=>(state=0,fs.appendFile(`times_${ev}.txt`,(pen==2?'d':pen==1?sec(unsec($('#time').text())+2):$('#time').text())+'\n',_=>{}),scram())
+done=_=>(
+  state=0,
+  fs.appendFile(
+    `times_${ev}.txt`,
+    (pen==2?'d':pen==1?sec(unsec($('#time').text())+2):$('#time').text())+'\n',
+    _=>{}
+  ),
+  scram()
+)
 
 //inspect or time using keyup, stop timer using keydown
 $(_=>{
