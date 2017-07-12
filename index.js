@@ -27,7 +27,7 @@ sec=x=>(x/60|0)+':'+`00${x%60|0}`.slice(-2)+'.'+`000${(x-(x|0))*1e3+.5|0}`.slice
 unsec=x=>(a=x.split`:`,a[1]?a[0]*60+(a[1]*1e3|0)/1e3:(a[0]*1e3|0)/1e3)
 
 //inspection time
-insp=_=>(state=2,ins=15,INSP=setInterval(_=>{
+insp=_=>(state=2,ins=14,$('#time').html(15),INSP=setInterval(_=>{
   ins>0?
     $('#time').html(ins--)
   :ins>-2?
