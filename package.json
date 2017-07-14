@@ -9,8 +9,8 @@
   "devDependencies": {
     "electron": "^1.6.11"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "bin": {
+    "propertimer": "./run.sh"
   },
   "repository": {
     "type": "git",
