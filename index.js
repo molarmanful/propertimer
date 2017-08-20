@@ -7,6 +7,7 @@ scr=require('./scrambler.js')
 cfg=require(require('os').homedir()+'/.propertimerrc')
 inspect=cfg.inspect||1
 ev=cfg.event||'333'
+key=cfg.key||' '
 
 //start scrambler for current event
 scr[ev].initialize(null,Math)
@@ -55,7 +56,7 @@ done=_=>(
 $(_=>{
   scram()
   $(window).keyup(e=>{
-    e.which==32&&(
+    key==' '&&(
       state==2?
         (clearInterval(INSP),time())
       :state==1?
@@ -68,7 +69,7 @@ $(_=>{
     )
   })
   $(window).keydown(e=>{
-    e.which==32&&(
+    key==' '&&(
       state==1?
         clearInterval(TIME)
       :0
