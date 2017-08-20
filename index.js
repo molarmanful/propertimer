@@ -56,7 +56,7 @@ done=_=>(
 $(_=>{
   scram()
   $(window).keyup(e=>{
-    key==' '&&(
+    e.key==key&&(
       state==2?
         (clearInterval(INSP),time())
       :state==1?
@@ -69,7 +69,7 @@ $(_=>{
     )
   })
   $(window).keydown(e=>{
-    key==' '&&(
+    e.key==key&&(
       state==1?
         clearInterval(TIME)
       :0
