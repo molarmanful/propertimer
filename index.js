@@ -57,7 +57,7 @@ done=_=>(
 $(_=>{
   scram()
   $(window).keyup(e=>{
-    startkeys.indexOf(e.key)&&!e.ctrlKey&&!e.altKey&&!e.metaKey&&(
+    ~startkeys.indexOf(e.key)&&!(e.ctrlKey||e.altKey||e.metaKey)&&(
       state==2?
         (clearInterval(INSP),time())
       :state==1?
@@ -70,7 +70,7 @@ $(_=>{
     )
   })
   $(window).keydown(e=>{
-    stopkeys.indexOf(e.key)&&!e.ctrlKey&&!e.altKey&&!e.metaKey&&(
+    ~stopkeys.indexOf(e.key)&&!(e.ctrlKey||e.altKey||e.metaKey)&&(
       state==1?
         clearInterval(TIME)
       :0
