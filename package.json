@@ -9,9 +9,6 @@
   "devDependencies": {
     "electron": "^1.6.11"
   },
-  "bin": {
-    "propertimer": "./run.sh"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/molarmanful/propertimer.git"
